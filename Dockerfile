@@ -14,12 +14,15 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the application code
-COPY . .
+# --- REMOVED THE CONFLICTING LINE: COPY . . ---
+# This line caused issues because it copied all files (including those in src/api) 
+# into /app/src/api, which conflicted with the subsequent explicit copies to /app.
 
 # Copy only the API files directly into the container's working directory (/app)
+# Source is relative to the Docker build context (project root)
+# Destination is the current WORKDIR (/app)
 COPY src/api/app.py .
-COPY src/api/run_api.sh
+COPY src/api/run_api.sh .
 
 # Make the startup script executable
 RUN chmod +x run_api.sh
