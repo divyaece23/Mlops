@@ -1,0 +1,25 @@
+# config.yaml
+
+# --- GCP Configuration ---
+gcp:
+  project_id: "mlops-iris-project-12345" # Replace with your actual GCP Project ID
+  region: "us-central1"                  # Target region for Cloud Run
+  artifact_registry_repo: "iris-api-repo" # Name of your Artifact Registry repository
+
+# --- MLflow Configuration ---
+mlflow:
+  # This should be a persistent server, often deployed on App Engine or a VM/Cloud Run
+  tracking_uri: "http://mlflow-tracking-server-xyz.a.run.app"
+  experiment_name: "Iris_Classification_Production"
+  model_name: "IrisLogisticRegressionModel"
+
+# --- Deployment Configuration ---
+deployment:
+  service_name: "iris-classifier-service" # Name of the Cloud Run service
+  model_stage: "Production"               # Model stage to serve (Loaded by app.py)
+
+# --- Data Configuration ---
+data:
+  # GCS bucket where MLflow stores artifacts AND where data might be stored
+  gcs_bucket: "gs://mlops-iris-artifacts-bucket"
+  training_data_path: "data/iris/iris.csv"
