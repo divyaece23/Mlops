@@ -17,6 +17,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application code
 COPY . .
 
+# Copy only the API files directly into the container's working directory (/app)
+COPY src/api/app.py .
+COPY src/api/run_api.sh
+
 # Make the startup script executable
 RUN chmod +x run_api.sh
 
